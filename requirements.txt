@@ -1,0 +1,5 @@
+flask
+flasgger
+jsonschema
+paho-mqtt
+dotenv
