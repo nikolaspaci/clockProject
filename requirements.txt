@@ -2,4 +2,4 @@ flask
 flasgger
 jsonschema
 paho-mqtt
-dotenv
+python-dotenv
