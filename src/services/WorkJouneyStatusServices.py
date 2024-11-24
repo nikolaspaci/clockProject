@@ -89,7 +89,7 @@ def constructStatusAndJourneyMessage(durationMin,disruptionsList):
     return message
 
 
-def publish_journey_status(fromAddress="Mairie de Saint Ouen,FR", toAddress="40 rue du colisee , Paris, FR"):   
+def publish_journey_status(fromAddress="23 rue leon blum Clichy 92110,FR", toAddress="40 rue du colisee , Paris, FR"):   
     publisher = ClockMQTTPublisher()
     coordFrom = getLatitudeAndLongitude(fromAddress)
     coordTo = getLatitudeAndLongitude(toAddress)
