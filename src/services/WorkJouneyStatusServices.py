@@ -51,7 +51,8 @@ def statusLine(data):
         status = data["disruptions"]
         #filter on each status to have only where object is status=active and tags contains "Actualité"
         filtered = [s for s in status if s["status"]=="active" and "Actualité" in s["tags"]]
-        listOfDisruptions.append(filtered)
+        if len(filtered)!=0:
+            listOfDisruptions.append(filtered)
     return listOfDisruptions
 
 def constructStatusAndJourneyMessage(durationMin,disruptionsList):
@@ -59,7 +60,7 @@ def constructStatusAndJourneyMessage(durationMin,disruptionsList):
     statusColor = [0, 255, 0]
     statusMessage = ""
     # Mise à jour des valeurs si le statut est disponible
-    if disruptionsList:
+    if len(disruptionsList)!=0:
         statusColor = hex_to_rgb(disruptionsList[0][0]['severity']['color'])
     # Construction du message principal
     message = [
