@@ -2,7 +2,7 @@ from src.backApiCaller.SncfApiCaller import callForJourney, callForStatus
 from src.mqtt.MQTTPublisher import ClockMQTTPublisher
 from src.utils.ColorsUtils import hex_to_rgb
 from src.backApiCaller.GeoCodeApi import getLatitudeAndLongitude
-
+import html
 
 def getDataOfJourney(params):
     data = callForJourney(params)
@@ -49,6 +49,7 @@ def statusLine(data):
         if data is None:
             continue
         status = data["disruptions"]
+        print(status)
         #filter on each status to have only where object is status=active and tags contains "Actualité"
         filtered = [s for s in status if s["status"] == "active" and "tags" in s and "Actualité" in s["tags"]]
         if len(filtered)!=0:
@@ -76,16 +77,15 @@ def constructStatusAndJourneyMessage(durationMin,disruptionsList):
     # Ajout des messages de disruption lis
     for disruptionsByline in disruptionsList:
         for disruption in disruptionsByline:
-            statusMessage = disruption["messages"][0]["text"]
+            statusMessage = next((msg["text"] for msg in disruption["messages"] if msg["channel"]["content_type"] == "text/plain"),None)            
             statusColor = hex_to_rgb(disruption["severity"]["color"])
             message.append(
-                {
-                    "duration": 10,
-                    "text": statusMessage,
-                    "icon": "620",
-                    "color": statusColor,
-                    "retain": True
-                }
+            {
+                "text": statusMessage,
+                "icon": "620",
+                "color": statusColor,
+                "retain": True
+            }
             )
     return message
 
