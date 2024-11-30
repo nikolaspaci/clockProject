@@ -62,6 +62,12 @@ def getWeatherMessageMainAndTemperatureAndIcon(address):
     }
     return message
 
+def getWeather(address):
+    data = getWeatherCity(address)
+    main = data["weather"][0]["main"]
+    temperature = data["main"]["temp"]
+    temperatureToDegree = round(temperature - 273.15,1)
+    return {"main":main,"temperature":temperatureToDegree}
 
 def publish_weather(address):
     publisher = ClockMQTTPublisher()

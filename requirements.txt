@@ -3,3 +3,4 @@ flasgger
 jsonschema
 paho-mqtt
 python-dotenv
+gunicorn    

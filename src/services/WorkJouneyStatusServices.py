@@ -90,8 +90,7 @@ def constructStatusAndJourneyMessage(durationMin,disruptionsList):
     return message
 
 
-def publish_journey_status(fromAddress="23 rue leon blum Clichy 92110,FR", toAddress="40 rue du colisee , Paris, FR"):   
-    publisher = ClockMQTTPublisher()
+def constructJourneyParamsAndCall(fromAddress,toAddress):
     coordFrom = getLatitudeAndLongitude(fromAddress)
     coordTo = getLatitudeAndLongitude(toAddress)
     coordFromStr = str.format("{0};{1}", coordFrom['lon'], coordFrom['lat'])
@@ -100,8 +99,16 @@ def publish_journey_status(fromAddress="23 rue leon blum Clichy 92110,FR", toAdd
     data = getDataOfJourney(params)
     timeMin = getDurationOfJourney(data)
     disruptionsList = statusLine(data)
+    return timeMin,disruptionsList
+
+
+def publish_journey_status(fromAddress="23 rue leon blum Clichy 92110,FR", toAddress="40 rue du colisee , Paris, FR"):   
+    publisher = ClockMQTTPublisher()
+    timeMin, disruptionsList = constructJourneyParamsAndCall(fromAddress,toAddress)
     objmessage = constructStatusAndJourneyMessage(timeMin, disruptionsList)
     publisher.publishJourneyDurationAndTrainStatus(objmessage)
     publisher.disconnect()
 
-
+def getJourneyStatus(fromAddress="23 rue leon blum Clichy 92110,FR", toAddress="40 rue du colisee , Paris, FR"):
+    timeMin, disruptionsList = constructJourneyParamsAndCall(fromAddress,toAddress)
+    return timeMin, disruptionsList
