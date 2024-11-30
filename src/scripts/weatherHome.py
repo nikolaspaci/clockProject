@@ -1,4 +1,4 @@
-from services.WeatherStatusServices import publish_weather
+from src.services.WeatherStatusServices import publish_weather
 
 
 if __name__ == "__main__":

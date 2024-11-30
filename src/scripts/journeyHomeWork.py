@@ -1,4 +1,4 @@
-from services.WorkJouneyStatusServices import publish_journey_status
+from src.services.WorkJouneyStatusServices import publish_journey_status
 
 
 if __name__ == "__main__":
