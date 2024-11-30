@@ -50,7 +50,7 @@ def statusLine(data):
             continue
         status = data["disruptions"]
         #filter on each status to have only where object is status=active and tags contains "Actualité"
-        filtered = [s for s in status if s["status"]=="active" and "Actualité" in s["tags"]]
+        filtered = [s for s in status if s["status"] == "active" and "tags" in s and "Actualité" in s["tags"]]
         if len(filtered)!=0:
             listOfDisruptions.append(filtered)
     return listOfDisruptions
