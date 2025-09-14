@@ -54,11 +54,31 @@ def getWeatherMessageMainAndTemperatureAndIcon(address):
     icon = configure_icon(sunrise, sunset,main)
     temperature = data["main"]["temp"]
     temperatureToDegree = round(temperature - 273.15,1)
+
+    overlay_map = {
+        "Thunderstorm": "thunder",
+        "Drizzle": "drizzle",
+        "Rain": "rain",
+        "Snow": "snow",
+        "Mist": "drizzle",
+        "Smoke": "drizzle",
+        "Haze": "drizzle",
+        "Dust": "drizzle",
+        "Fog": "drizzle",
+        "Sand": "drizzle",
+        "Ash": "drizzle",
+        "Squall": "storm",
+        "Tornado": "storm",
+        "Clear": "clear"
+    }
+    overlay = overlay_map.get(main)
+
     message={
         "duration":5,
         "text":str.format("{0}°C",temperatureToDegree),
         "icon":icon,
-        "retain":True
+        "retain":True,
+        "overlay": overlay
     }
     return message
 

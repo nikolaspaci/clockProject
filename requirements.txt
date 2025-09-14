@@ -3,4 +3,6 @@ flasgger
 jsonschema
 paho-mqtt
 python-dotenv
-gunicorn    
+gunicorn
+yfinance
+pandas    

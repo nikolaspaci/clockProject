@@ -50,3 +50,15 @@ class ClockMQTTPublisher(MQTTPublisher):
     def publishJourneyDurationAndTrainStatus(self, message):
         endPrefix = "/custom/journeyDuration"
         super().publish(message, endPrefix)
+
+    def publishStockMarket(self, message):
+        endPrefix = "/custom/stock"
+        super().publish(message, endPrefix)
+
+    def publishSleep(self, message):
+        endPrefix = "/sleep"
+        super().publish(message, endPrefix)
+
+    def publishCrypto(self, message):
+        endPrefix = "/custom/crypto"
+        super().publish(message, endPrefix)
