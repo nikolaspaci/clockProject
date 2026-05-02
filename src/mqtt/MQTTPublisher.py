@@ -59,6 +59,10 @@ class ClockMQTTPublisher(MQTTPublisher):
         endPrefix = "/sleep"
         super().publish(message, endPrefix)
 
+    def publishPower(self, message):
+        endPrefix = "/power"
+        super().publish(message, endPrefix)
+
     def publishCrypto(self, message):
         endPrefix = "/custom/crypto"
         super().publish(message, endPrefix)

@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flasgger import Swagger
 from src.services.WeatherStatusServices import publish_weather,getWeather
 from src.services.WorkJouneyStatusServices import publish_journey_status,getJourneyStatus
+from src.services.PowerService import PowerService
 
 app = Flask(__name__)
 swagger = Swagger(app)
@@ -95,6 +96,32 @@ def get_weather():
     weather = getWeather(address)
     return jsonify({"weather": weather}), 200
 
+
+
+@app.route('/clock/turn_on', methods=['POST'])
+def turn_on_endpoint():
+    """
+    Turn on the clock display
+    ---
+    responses:
+      200:
+        description: Clock turned on successfully
+    """
+    PowerService().turn_on()
+    return jsonify({"message": "Clock turned on successfully"}), 200
+
+
+@app.route('/clock/turn_off', methods=['POST'])
+def turn_off_endpoint():
+    """
+    Turn off the clock display
+    ---
+    responses:
+      200:
+        description: Clock turned off successfully
+    """
+    PowerService().turn_off()
+    return jsonify({"message": "Clock turned off successfully"}), 200
 
 
 if __name__ == "__main__":
